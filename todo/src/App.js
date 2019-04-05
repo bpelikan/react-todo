@@ -16,8 +16,7 @@ export default class App extends Component {
     })
   }
   
-  render() {
-    return (
+  render = () =>
       <div>
         <h4 className="bg-primary text-white text-center p-2">
           { this.state.userName }'s To Do List
@@ -26,6 +25,4 @@ export default class App extends Component {
           Change
         </button>
       </div>
-    )
-  };
 }
