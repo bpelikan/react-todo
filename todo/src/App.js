@@ -29,8 +29,9 @@ export default class App extends Component {
   }
   
   toggleTodo = (todo) => this.setState({ 
-    todoItems: this.state.todoItems.map(item => item.action === todo.action? { ...item, done: !item.done } : item) 
-  });
+    todoItems: this.state.todoItems.map(item => item.action === todo.action? { ...item, done: !item.done } : item)},
+      () => localStorage.setItem("todos", JSON.stringify(this.state)
+  ));
   
   todoTableRows = (doneValue) => this.state.todoItems.filter(item => item.done === doneValue).map(item =>
     <TodoRow key={ item.action } item={ item } callback={ this.toggleTodo } />
