@@ -35,10 +35,10 @@ export default class App extends Component {
     todoItems: this.state.todoItems.map(item => item.action === todo.action? { ...item, done: !item.done } : item) 
   });
   
-  todoTableRows = () => this.state.todoItems.map(item =>
+  todoTableRows = () => this.state.todoItems.map((item, index) =>
     <tr key={ item.action }>
       <td>
-        { item.action}
+        {index + 1 }. { item.action}
       </td>
       <td>
         <input type="checkbox" checked={ item.done } onChange={ () => this.toggleTodo(item) } />
