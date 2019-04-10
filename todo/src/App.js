@@ -47,7 +47,14 @@ export default class App extends Component {
 
   todoTableRows = (doneValue) => this.state.todoItems
     .filter(item => item.done === doneValue)
-    .map(item => <TodoRow key={ item.action } item={ item } callback={ this.toggleTodo } />)
+    .map(item => <TodoRow key={ item.action } item={ item } callback={ this.toggleTodo } callbackDeleteRow={ this.todoDeleteTableRows } />)
+
+  todoDeleteTableRows = (deletedRow) => {
+    this.setState({
+        todoItems: this.state.todoItems.filter(item => item !== deletedRow)},
+      this.saveStateDataToLocalStorage
+    )
+  }
 
   componentDidMount = () => {
     let data = localStorage.getItem("todos");
@@ -78,6 +85,9 @@ export default class App extends Component {
                 <th>
                     Done
                 </th>
+                <th>
+                    Delete
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -97,6 +107,9 @@ export default class App extends Component {
                   </th>
                   <th>
                     Done
+                  </th>
+                  <th>
+                    Delete
                   </th>
                 </tr>
               </thead>
