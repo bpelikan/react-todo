@@ -8,19 +8,19 @@ export default class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
-      userName: "Adam",
-      todoItems: [{ action: "Buy Flowers", done: false },
-                  { action: "Get Shoes", done: false },
-                  { action: "Collect Tickets", done: true },
-                  { action: "Call Joe", done: false }],
-      showCompleted: true
+        userName: "Adam",
+        todoItems: [{ action: "Buy Flowers", done: false },
+                    { action: "Get Shoes", done: false },
+                    { action: "Collect Tickets", done: true },
+                    { action: "Call Joe", done: false }],
+        showCompleted: true
     }
   }
 
   updateNewTextValue = (event) => {
     this.setState({ newItemText: event.target.value });
   }
-
+  
   createNewTodo = (task) => {
     if (!this.state.todoItems.find(item => item.action === task)) {
         this.setState({ todoItems: [...this.state.todoItems, { action: task, done: false }]},
@@ -33,6 +33,12 @@ export default class App extends Component {
       () => localStorage.setItem("todos", JSON.stringify(this.state)
   ));
   
+  toggleShowingCompletedTodo = (checked) => {
+    this.setState({ 
+      showCompleted: checked }, 
+      () => localStorage.setItem("todos", JSON.stringify(this.state)))
+  }
+
   todoTableRows = (doneValue) => this.state.todoItems.filter(item => item.done === doneValue).map(item =>
     <TodoRow key={ item.action } item={ item } callback={ this.toggleTodo } />
   );
@@ -71,7 +77,7 @@ export default class App extends Component {
             </tbody>
           </table>
           <div className="bg-secondary text-white text-center p-2">
-            <VisibilityControl description="Completed Tasks" isChecked={this.state.showCompleted} callback={ (checked) => this.setState({ showCompleted: checked })} />
+            <VisibilityControl description="Completed Tasks" isChecked={this.state.showCompleted} callback={ this.toggleShowingCompletedTodo } />
           </div>
           { 
             this.state.showCompleted &&
