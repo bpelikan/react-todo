@@ -25,7 +25,7 @@ export default class App extends Component {
   }
 
   createNewTodo = (task) => {
-    if (!this.state.todoItems.find(item => item.action === task)) {
+    if (!this.state.todoItems.find(item => item.action === task) && task !== "") {
         this.setState({ 
             todoItems: [...this.state.todoItems, { action: task, done: false }]},
           this.saveStateDataToLocalStorage
@@ -47,9 +47,9 @@ export default class App extends Component {
 
   todoTableRows = (doneValue) => this.state.todoItems
     .filter(item => item.done === doneValue)
-    .map(item => <TodoRow key={ item.action } item={ item } callback={ this.toggleTodo } callbackDeleteRow={ this.todoDeleteTableRows } />)
+    .map(item => <TodoRow key={ item.action } item={ item } callback={ this.toggleTodo } callbackDeleteRow={ this.todoTableRowDelete } />)
 
-  todoDeleteTableRows = (deletedRow) => {
+  todoTableRowDelete = (deletedRow) => {
     this.setState({
         todoItems: this.state.todoItems.filter(item => item !== deletedRow)},
       this.saveStateDataToLocalStorage
