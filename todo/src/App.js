@@ -25,7 +25,7 @@ export default class App extends Component {
   }
 
   createNewTodo = (task) => {
-    if (!this.state.todoItems.find(item => item.action === task) && task !== "") {
+    if (!this.state.todoItems.find(item => item.action === task) && task.replace(/\s/g, '') !== "") {
         this.setState({ 
             todoItems: [...this.state.todoItems, { action: task, done: false }]},
           this.saveStateDataToLocalStorage
